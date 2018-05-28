@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body
+{
+	background:url(../images/black.jpg) no-repeat;
+}
+h2
+{
+    padding:70px;
+    background-color:darkred;
+    color:white;
+    text-align:center;
+    font-size:30pt;
+	letter-spacing:15px;
+}
+
+ul
+{
+    list-style:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+li
+{
+    float:left;
+  
+}
+a:link,a:visited
+{
+    
+	display:block;
+	front-weight:bold;
+	color:white;
+	background-color:darkred;
+	width:410px;
+	text-align:center;
+	 padding:20px;
+	 text-transform:uppercase;
+	 text-decoration:none;
+}
+a:hover,a:active
+{
+     background-color:brown;
+}
+select
+{
+font-size:15px;
+height:40px;
+width:200px;
+}
+</style>
+<script>
+
+
+function showHint(str) {
+var e = document.getElementById("category");
+var value = e.options[e.selectedIndex].value;
+    if (str.length == 0) {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "gethint.php?searchlibrary="+str+"&category=" +value, true);
+        xmlhttp.send();
+    }
+}
+</script>
+</head>
+
+<body>
+<h2>WELCOME</h2>
+<ul >
+<li><a href="myaccount.php">My Account</a></li>
+<li><a href="mylibrary.php">My Library</a></li>
+<li><a href="login.php">Log Out</a></li>
+</ul>
+<form action='searchresult.php'>
+<table align="center" style="padding-top:150px">
+<tr><td style="font-size:20px;color:white;">Category:<select name="category" id="category" style="text-align:center;">
+                                                             <option value=""></option>
+															 <option value="Bookname">Book name</option>
+                                                             <option value="Writer"> Writer</option>
+															 <option value="Type">Type</option>
+															 <option value="Publicationdate">Publication date</option></td>
+    <td><input type="text" style="height:40px;width:450px;" name="searchlibrary" onkeyup="showHint(this.value)"></td>
+	<td><input type="submit" style="background-color:darkred;height:40px;width:150px;color:white;font-size:15px;" name="searchbook" value="Search"></td>
+	<tr><td></td><td style='color:white;font-size:15pt'><p>Suggestion: <span id="txtHint"></span></p></td></tr>
+</tr>
+</table>
+</form>
+</body>
+</html>
